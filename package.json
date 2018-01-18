@@ -1,0 +1,26 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "Homework 10 - LIRI",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moffa1953/liri-node-app.git"
+  },
+  "author": "Bill Moffa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moffa1953/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/moffa1953/liri-node-app#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "node-spotify-api": "^1.0.7",
+    "omdb": "^0.8.0",
+    "request": "^2.83.0",
+    "twitter": "^1.7.1"
+  }
+}
