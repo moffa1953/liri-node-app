@@ -8,7 +8,10 @@ var keys     	= require("./keys.js");
 var workString 	= []
 var formattedArr = [];
 var twitMsgarr 	= [];
-console.log(dotenv)
+
+var spotify 	= new Spotify(keys.spotify)
+var client 		= new Twitter(keys.twitter)
+
 		whatTodo = process.argv[2]
 
 		if(whatTodo == "do-what-it-says") {
@@ -44,7 +47,7 @@ console.log(dotenv)
 		        movies(workString)
 		        break;
 		    default:
-		        day = "item";
+		        console.log("Unidentified request entered");
 
 		}            // end of switch whatTodo
 
@@ -100,13 +103,6 @@ console.log(dotenv)
 
 
 		function getTwitter() {
-				var client = new Twitter( {
-				        consumer_key: keys.twitter.consumer_key,
-				        consumer_secret: keys.twitter.consumer_secret,
-				        access_token_key: keys.twitter.access_token_key,
-				        access_token_secret: keys.twitter.access_token_secret
-				    }
-				)
  
 		      	// get user keys.login
 		      	var params = {
@@ -177,26 +173,31 @@ console.log(dotenv)
 		}
 
 		function getSpotify(song) {
+
+				console.log("Results for the song "+song)
+				console.log("------------------------------------------")
 		        spotify.search({ type: 'track', query: song }, function(err, data) {
-		        if ( err ) {
-		             console.log('Error occurred: ' + err);
-		             return;
-		        }
+			        if (err) {
+			             console.log('Error occurred: ' + err);
+			             return;
+			        }
 
-		        for(i=0; i < data.tracks.items.length; i++) {
+			        for(i=0; i < data.tracks.items.length; i++) {
 
-		           artist = data.tracks.items[i].album.artists[0].name
-		           albumName = data.tracks.items[i].album.name
-		           songName = data.tracks.items[i].name
-		           spotifyLink = data.tracks.items[i].external_urls.spotify
+			           artist = data.tracks.items[i].album.artists[0].name
+			           albumName = data.tracks.items[i].album.name
+			           songName = data.tracks.items[i].name
+			           spotifyLink = data.tracks.items[i].external_urls.spotify
 
-		           console.log("Song Name:" + "\t\t" + songName +
-		               "\n" + "Album Name:" + "\t\t" + albumName +
-		               "\n" + "Artist:" + "\t\t\t" + artist +
-		               "\n" + "Preview Link:" + "\t\t" + spotifyLink +
-		               "\n" + "---"
-		            )
-		         }
+			           console.log("Song Name:" + "\t\t" + songName +
+			               "\n" + "Album Name:" + "\t\t" + albumName +
+			               "\n" + "Artist:" + "\t\t\t" + artist +
+			               "\n" + "Preview Link:" + "\t\t" + spotifyLink +
+			               "\n" + "---"
+			            )
+			        }
+
+
 		})};
 
 		function formatText(rawText,textWidth) {
@@ -219,3 +220,19 @@ console.log(dotenv)
 
 			return formattedArr
 		}
+
+
+				       //  for(i=0; i < data.tracks.items.length; i++) {
+
+		         //   artist = data.tracks.items[i].album.artists[0].name
+		         //   albumName = data.tracks.items[i].album.name
+		         //   songName = data.tracks.items[i].name
+		         //   spotifyLink = data.tracks.items[i].external_urls.spotify
+
+		         //   console.log("Song Name:" + "\t\t" + songName +
+		         //       "\n" + "Album Name:" + "\t\t" + albumName +
+		         //       "\n" + "Artist:" + "\t\t\t" + artist +
+		         //       "\n" + "Preview Link:" + "\t\t" + spotifyLink +
+		         //       "\n" + "---"
+		         //    )
+		         // }
