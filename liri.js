@@ -15,14 +15,19 @@ var client 		= new Twitter(keys.twitter)
 		whatTodo = process.argv[2]
 
 		if(whatTodo == "do-what-it-says") {
+
 				fs.readFile("random.txt", "utf8", function(err, data) {
     				if (err) {
       					console.log("Can't find anything to do");
     				}
-    				dataArray = data.split(",")   				
+    			
+    				dataArray = data.split(",") 		
     				whatTodo = dataArray[0]
-    				workString.push(dataArray[1])
-    				workString.toString();
+    				
+    				workString = dataArray[1]
+    				console.log("---------------------"+workString)
+    				//workString.toString();
+    				playGame(whatTodo,workString)
     			})
 		} else {
 		// pull all of the augments from the command line
@@ -32,25 +37,27 @@ var client 		= new Twitter(keys.twitter)
 				for(i=3; i < process.argv.length; i++) {
 					workString[(i-3)] = process.argv[i] 
 				}
-				workString.toString();
+				//workString.toString()
 			}
+			playGame(whatTodo,workString)
 		}
 
-		switch (whatTodo) {
-		    case "my-tweets":
-		        getTwitter()
-		        break;
-		    case "spotify-this-song":
-		        getSpotify(workString)
-		        break;
-		    case "movie-this":
-		        movies(workString)
-		        break;
-		    default:
-		        console.log("Unidentified request entered");
+		function playGame(whatTodo,workString) {
+				switch  (whatTodo) {
+				    case "my-tweets":
+				        getTwitter()
+				        break;
+				    case "spotify-this-song":
+				        getSpotify(workString)
+				        break;
+				    case "movie-this":
+				        movies(workString)
+				        break;
+				    default:
+				        console.log("Unidentified request entered");
 
-		}            // end of switch whatTodo
-
+				}            // end of switch whatTodo
+		}
 
 		function movies(movieName) {
 		    console.log("")
@@ -221,18 +228,3 @@ var client 		= new Twitter(keys.twitter)
 			return formattedArr
 		}
 
-
-				       //  for(i=0; i < data.tracks.items.length; i++) {
-
-		         //   artist = data.tracks.items[i].album.artists[0].name
-		         //   albumName = data.tracks.items[i].album.name
-		         //   songName = data.tracks.items[i].name
-		         //   spotifyLink = data.tracks.items[i].external_urls.spotify
-
-		         //   console.log("Song Name:" + "\t\t" + songName +
-		         //       "\n" + "Album Name:" + "\t\t" + albumName +
-		         //       "\n" + "Artist:" + "\t\t\t" + artist +
-		         //       "\n" + "Preview Link:" + "\t\t" + spotifyLink +
-		         //       "\n" + "---"
-		         //    )
-		         // }
